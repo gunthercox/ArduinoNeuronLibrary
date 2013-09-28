@@ -7,6 +7,9 @@ class Neuron {
 
 public:
  Neuron(int analog, int digital);
+ 
+ // SPEED OF NEURON OPERATION
+ const static int neuronSpeed = 250;
 
  // DENDRITES AND SYNAPTIC TERMINALS
  int analogPin;
@@ -26,6 +29,7 @@ public:
  
  int signalType();
  long getFrequency(int pin);
+ long setFrequency(int pin);
 
  void excitory();
  void inhibitory();
