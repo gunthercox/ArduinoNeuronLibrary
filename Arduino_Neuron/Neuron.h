@@ -9,7 +9,14 @@ public:
  Neuron(int analog, int digital);
  
  // SPEED OF NEURON OPERATION
+ // SHULD BE CAPS
  const static int neuronSpeed = 250;
+ 
+ // CYCLICAL FREQUENCY STATE
+ int frequency;
+ 
+ // BOOLEAN VALUE THAT ALLOWS NEURON TO BE TURNED OFF
+ boolean active = false;
 
  // DENDRITES AND SYNAPTIC TERMINALS
  int analogPin;
@@ -19,12 +26,13 @@ public:
  int calibratedAmountLow;
  int calibratedAmountHigh;
  
- // A current flaw is that the action potential does not regulate over time.
- // Neurotransmitters naturally ware off over time.
  int actionPotential;
 
  void calibrate();
+ void start();
 
+
+ boolean actionPotentialProbability2();
  boolean actionPotentialProbability(int excitory, int inhibitory);
  
  int signalType();
@@ -34,8 +42,8 @@ public:
  void excitory();
  void inhibitory();
  
- // RETURN NEURON PINS
- int get_dendrite();
- int get_terminal();
+ int dendrite();
+ int terminal();
 
 };
+

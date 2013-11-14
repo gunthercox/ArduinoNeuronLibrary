@@ -15,17 +15,17 @@ Neuron neuron4(A3, 3);
 void setup() {
   
   // SET DENDRITES AS INPUTS AND SYNAPTIC TERMINALS AS OUTPUT
-  pinMode(neuron1.get_dendrite(), INPUT);
-  pinMode(neuron1.get_terminal(), OUTPUT);
+  pinMode(neuron1.dendrite(), INPUT);
+  pinMode(neuron1.terminal(), OUTPUT);
   
-  pinMode(neuron2.get_dendrite(), INPUT);
-  pinMode(neuron2.get_terminal(), OUTPUT);
+  pinMode(neuron2.dendrite(), INPUT);
+  pinMode(neuron2.terminal(), OUTPUT);
 
-  pinMode(neuron3.get_dendrite(), INPUT);
-  pinMode(neuron3.get_terminal(), OUTPUT);
+  pinMode(neuron3.dendrite(), INPUT);
+  pinMode(neuron3.terminal(), OUTPUT);
   
-  pinMode(neuron4.get_dendrite(), INPUT);
-  pinMode(neuron4.get_terminal(), OUTPUT);
+  pinMode(neuron4.dendrite(), INPUT);
+  pinMode(neuron4.terminal(), OUTPUT);
 
   Serial.begin(9600);
   Serial.println("Arduino Neuron Inilalized");
@@ -39,6 +39,8 @@ void setup() {
 }
 
 void loop() {
+  
+  // dont forget to neuron.begin!!!!
 
   // READ DENDRITE VALUES
   /*for (int w = 0; w <= 4; w++) {
@@ -110,3 +112,4 @@ void loop() {
   }*/
 
 }
+

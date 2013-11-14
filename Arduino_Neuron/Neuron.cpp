@@ -5,6 +5,30 @@
 Neuron::Neuron(int analog, int digital) {
   analogPin = analog;
   digitalPin = digital;
+  
+  while(active=true) {
+    
+    // WAIT FOR A SIGNAL TO START (READ FIRST), OR RANDOMLY FIRE
+
+    if ((digitalRead(analogPin) >= calibratedAmountHigh) || (random(2) == 0)) {
+      
+      // INCREMENT ACTION POTENTIAL AND SOMETIMES RANDOMLY FIRE
+      
+      actionPotential += 1;
+      
+      if (actionPotentialProbability2()) {
+        
+      }
+      
+    }
+    
+  }
+  
+}
+
+// CALL THIS TO START THE NEURON
+void Neuron::start() {
+  active = true;
 }
 
 // CALIBRATE NEURON DENDRITES
@@ -35,6 +59,8 @@ int Neuron::signalType() {
   // 1 = excitory, blinking fast
   // 2 = inhibitory, blinking slow
   
+  // NO, not any more. NOW IT WILL BE PER CYCLE(S)
+  
   long frequency = getFrequency(analogPin);
   
   // EXCITORY FREQUENCY
@@ -54,6 +80,24 @@ int Neuron::signalType() {
     return 0;
 
 }
+
+/*
+At first, I had thought that the key to allowing the neurons to
+communicate was to set and read different frequencies. This
+creates a problem because the Arduino platform does not have the
+ability to continuously scan for an input signal. This was a
+major obstical until I realized that it would be possible to
+create a incremental varriable that corresponds to the cyclical
+structure of the boards main method. By reading a cyclical
+frequency I am able to read the different types of signals
+correctly, but this also creates a new and very interesting
+property. In order for the neurons to stay synchronized they
+need to be listening when the correct cycle aproaches. This
+desirable trait can be achieve by having each neuron wait for a
+trigger signal beffore becoming active. This property of the 
+artificial neurons may prove to mimic the way the human brain
+will synchronize the firing of neurons to mimic sensory stimuli.
+*/
 
 // GET THE FREQUENCY OF THE INCOMING SIGNAL
 // http://tushev.org/articles/arduino/item/51-measuring-frequency-with-arduino
@@ -82,8 +126,24 @@ void Neuron::inhibitory() {
   delay(neuronSpeed);
 }
 
+// TEMPORARY HACK TO SKIP USING MULTIPLE SIGNAL TYPES
+boolean Neuron::actionPotentialProbability2() {
+  
+  if ((digitalRead(analogPin) >= calibratedAmountHigh) || (random(2) == 0)) {
+   
+   return true;
+    
+  }
+  
+  return false;
+  
+}
+
 // CONTROLS A NEURONS ACTION POTENTIAL
 boolean Neuron::actionPotentialProbability(int excitory, int inhibitory) {
+  
+  // A current flaw is that the action potential does not regulate over time.
+  // Neurotransmitters naturally ware off over time.
 
   // ESOTERIC FUNCTION TO RETURN A VALUE FOR A NEURON'S ACTION POTENTIAL
 
@@ -100,10 +160,13 @@ boolean Neuron::actionPotentialProbability(int excitory, int inhibitory) {
 
 }
 
-int Neuron::get_dendrite() {
+// RETURN NEURON PINS
+
+int Neuron::dendrite() {
   return analogPin;
 }
 
-int Neuron::get_terminal() {
+int Neuron::terminal() {
   return digitalPin;
 }
+
