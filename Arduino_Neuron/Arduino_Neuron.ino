@@ -41,6 +41,8 @@ void setup() {
 void loop() {
   
   // dont forget to neuron.begin!!!!
+  
+  // perhaps I will calibrate when I begin?
 
   // READ DENDRITE VALUES
   /*for (int w = 0; w <= 4; w++) {

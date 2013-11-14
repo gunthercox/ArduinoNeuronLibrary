@@ -18,6 +18,9 @@ Neuron::Neuron(int analog, int digital) {
       
       if (actionPotentialProbability2()) {
         
+        // TRIGGER ACTION POTENTIAL
+        excitory();
+        
       }
       
     }
@@ -130,6 +133,10 @@ void Neuron::inhibitory() {
 boolean Neuron::actionPotentialProbability2() {
   
   if ((digitalRead(analogPin) >= calibratedAmountHigh) || (random(2) == 0)) {
+    
+    // RESET ACTION POTENTIAL VARIABLE TO 0
+    
+    actionPotential = 0;
    
    return true;
     
