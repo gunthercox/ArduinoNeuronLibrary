@@ -33,14 +33,22 @@ void Neuron::terminate() {
 This calibrates the neuron.
 A measurement is saved for the highest and lowest
 value that the dendrites can detect.
+To make the calibrated values more accurate, multiple
+measurements will be taken and averaged together.
+To the accuracy of the calibration is praportional to
+the number of samples taken.
 */
 
 void Neuron::calibrate() {
-  digitalWrite(digitalPin, HIGH);
-  calibratedAmountHigh = analogRead(analogPin);
-  delay(SPEED);
-  digitalWrite(digitalPin, LOW);
-  calibratedAmountLow = analogRead(analogPin);
+
+  for (int i = 0; i <= 5; i++) {
+    digitalWrite(digitalPin, HIGH);
+    calibratedAmountHigh = (calibratedAmountHigh + analogRead(analogPin)) / 2;
+    delay(SPEED);
+    digitalWrite(digitalPin, LOW);
+    calibratedAmountLow = (calibratedAmountLow + analogRead(analogPin)) / 2;
+  }
+  
   Serial.println("Neuron calibrated: " + String(calibratedAmountLow) + " - " + String(calibratedAmountHigh));
 }
 
@@ -58,7 +66,7 @@ boolean Neuron::actionPotentialProbability() {
       return true;
     }
     
-  } else if (random(50) == 5) {
+  } else if (random(40) == 5) {
       Serial.println("Random fire");        
       return true;
   }
