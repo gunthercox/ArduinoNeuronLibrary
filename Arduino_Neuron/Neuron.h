@@ -32,13 +32,8 @@ public:
  void start();
 
 
- boolean actionPotentialProbability2();
- boolean actionPotentialProbability(int excitory, int inhibitory);
+ boolean actionPotentialProbability();
  
- int signalType();
- long getFrequency(int pin);
- long setFrequency(int pin);
-
  void excitory();
  void inhibitory();
  
