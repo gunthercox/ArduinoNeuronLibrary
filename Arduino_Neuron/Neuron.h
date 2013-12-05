@@ -10,7 +10,7 @@ public:
  
  // SPEED OF NEURON OPERATION
  // SHULD BE CAPS
- const static int neuronSpeed = 250;
+ const static int neuronSpeed = 150;
  
  // CYCLICAL FREQUENCY STATE
  int frequency;
@@ -26,11 +26,8 @@ public:
  int calibratedAmountLow;
  int calibratedAmountHigh;
  
- int actionPotential;
-
  void calibrate();
  void start();
-
 
  boolean actionPotentialProbability();
  

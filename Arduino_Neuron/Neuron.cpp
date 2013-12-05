@@ -45,12 +45,10 @@ void Neuron::calibrate() {
 
 // SENDS AN EXCITORY SIGNAL
 void Neuron::excitory() {
-  //for (int i = 0; i < 5; i++) {
     digitalWrite(digitalPin, HIGH);
     delay(neuronSpeed);
     digitalWrite(digitalPin, LOW);
     delay(neuronSpeed);
-  //}
 }
 
 // SENDS AN INHIBITORY SIGNAL
@@ -67,9 +65,6 @@ boolean Neuron::actionPotentialProbability() {
       Serial.println(String(analogRead(analogPin)) + " : " + String(calibratedAmountHigh) + " : " + String(calibratedAmountLow));
   
       if (analogRead(analogPin) <= ((calibratedAmountLow - 50))) {
-      
-          // RESET ACTION POTENTIAL VARIABLE TO 0
-          //actionPotential = 0;
             
           // TRIGGER ACTION POTENTIAL
           Serial.println("Neuron fired action potential from stimulis!");
@@ -79,9 +74,6 @@ boolean Neuron::actionPotentialProbability() {
       
     // RANDOMLY FIRE
     } else if (random(20) == 5) {
-      
-        // RESET ACTION POTENTIAL VARIABLE TO 0
-        actionPotential = 0;
         
         Serial.println("Random fire");
         delay(Neuron::neuronSpeed);
@@ -94,7 +86,6 @@ boolean Neuron::actionPotentialProbability() {
     }
   
   return false;
-  
 }
 
 // RETURN NEURON PINS
