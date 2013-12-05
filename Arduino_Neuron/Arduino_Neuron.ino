@@ -6,7 +6,7 @@
  ** 09/15/2013
  */
   
-// CREATE NEW NEURONS
+// CREATE NEW NEURON
 Neuron neuron1(A4, 12);
 
 void setup() {
@@ -24,9 +24,6 @@ void setup() {
 }
 
 void loop() {
-  
-  // dont forget to neuron.start!!!!
   neuron1.start();
-
 }
 

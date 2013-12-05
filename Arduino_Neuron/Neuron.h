@@ -15,7 +15,6 @@ public:
  int analogPin;
  int digitalPin;
  
- // DENDRITE READING WHEN TERMINALS SET TO LOW OR HIGH
  int calibratedAmountLow;
  int calibratedAmountHigh;
  
