@@ -7,85 +7,85 @@ Neuron::Neuron(int analog, int digital) {
   digitalPin = digital;
 }
 
-// CALL THIS TO START THE NEURON
+/*
+This starts and stops the neuron.
+*/
+
 void Neuron::start() {
-  active = true;
   
+  active = true;
   while (active=true) {
     
-    // WAIT FOR A SIGNAL TO START (READ FIRST), OR RANDOMLY FIRE
-
     if (actionPotentialProbability()) {
       excitory();
     }
     
+    delay(Neuron::SPEED);
+    
   }
-  
 }
 
-// CALIBRATE NEURON DENDRITES
+void Neuron::terminate() {
+   active = false; 
+}
+
+/*
+This calibrates the neuron.
+A measurement is saved for the highest and lowest
+value that the dendrites can detect.
+*/
+
 void Neuron::calibrate() {
-  
-  // SET TERMINAL HIGH
   digitalWrite(digitalPin, HIGH);
-
-  // RECORD HIGH READING
   calibratedAmountHigh = analogRead(analogPin);
-  
-  delay(neuronSpeed);
-
-  // SET TERMINAL LOW
+  delay(SPEED);
   digitalWrite(digitalPin, LOW);
-
-  // RECORD LOW READING
   calibratedAmountLow = analogRead(analogPin);
-  
   Serial.println("Neuron calibrated: " + String(calibratedAmountLow) + " - " + String(calibratedAmountHigh));
 }
 
-// SENDS AN EXCITORY SIGNAL
-void Neuron::excitory() {
-    digitalWrite(digitalPin, HIGH);
-    delay(neuronSpeed);
-    digitalWrite(digitalPin, LOW);
-    delay(neuronSpeed);
-}
-
-// SENDS AN INHIBITORY SIGNAL
-void Neuron::inhibitory() {
-  digitalWrite(digitalPin, HIGH);
-  delay(neuronSpeed * 2);
-  digitalWrite(digitalPin, LOW);
-  delay(neuronSpeed);
-}
-
-// TEMPORARY HACK TO SKIP USING MULTIPLE SIGNAL TYPES
 boolean Neuron::actionPotentialProbability() {
-  
-      Serial.println(String(analogRead(analogPin)) + " : " + String(calibratedAmountHigh) + " : " + String(calibratedAmountLow));
-  
-      if (analogRead(analogPin) <= ((calibratedAmountLow - 50))) {
-            
-          // TRIGGER ACTION POTENTIAL
-          Serial.println("Neuron fired action potential from stimulis!");
-          delay(Neuron::neuronSpeed);
-          
-          return true;
-      
-    // RANDOMLY FIRE
-    } else if (random(20) == 5) {
+
+  Serial.println(String(analogRead(analogPin)) + " : " + String(calibratedAmountHigh) + " : " + String(calibratedAmountLow));
+  Serial.println("ActionPotential: " + String(actionPotential));
+
+  if (analogRead(analogPin) <= ((calibratedAmountLow - 50))) {
+    
+    actionPotential += 1;
         
-        Serial.println("Random fire");
-        delay(Neuron::neuronSpeed);
-        
-        return true;
-        
-    // DO NOT FIRE
-    } else {
-      delay(Neuron::neuronSpeed);
+    if (actionPotential >= 1) {
+      Serial.println("Neuron fired action potential from stimulis!");
+      return true;
     }
+    
+  } else if (random(50) == 5) {
+      Serial.println("Random fire");        
+      return true;
+  }
   
   return false;
+}
+
+/*
+The excitory and inhibitory methods send deffent types of signals.
+Sending a signal decreases the action potential of a neuron.
+* Only excitory signals are currently being used.
+*/
+
+void Neuron::excitory() {
+  actionPotential -= 1;
+  digitalWrite(digitalPin, HIGH);
+  delay(SPEED);
+  digitalWrite(digitalPin, LOW);
+  delay(SPEED);
+}
+
+void Neuron::inhibitory() {
+  actionPotential -= 1;
+  digitalWrite(digitalPin, HIGH);
+  delay(SPEED * 2);
+  digitalWrite(digitalPin, LOW);
+  delay(SPEED);
 }
 
 // RETURN NEURON PINS

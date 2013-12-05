@@ -17,7 +17,7 @@ void setup() {
   
   Serial.begin(9600);
   Serial.println("Arduino Neuron Inilalized");
-  delay(Neuron::neuronSpeed);
+  delay(Neuron::SPEED);
   
   // CALIBRATE NEURONS
   neuron1.calibrate();

@@ -1,6 +1,3 @@
-//#ifndef Neuron_h
-//#define Neuron_h
-
 #include <Arduino.h>
 
 class Neuron {
@@ -9,11 +6,7 @@ public:
  Neuron(int analog, int digital);
  
  // SPEED OF NEURON OPERATION
- // SHULD BE CAPS
- const static int neuronSpeed = 150;
- 
- // CYCLICAL FREQUENCY STATE
- int frequency;
+ const static int SPEED = 150;
  
  // BOOLEAN VALUE THAT ALLOWS NEURON TO BE TURNED OFF
  boolean active = false;
@@ -28,7 +21,9 @@ public:
  
  void calibrate();
  void start();
+ void terminate();
 
+ int actionPotential = 0;
  boolean actionPotentialProbability();
  
  void excitory();
