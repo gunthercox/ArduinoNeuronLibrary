@@ -20,6 +20,9 @@ Specifications:
 - Nurons must become inactive if unused for a period of time.
 - Learning must be a emergant property of having many neurons together.
 
+
+```
+
 /*
 I considered having the calibration run when the neuron begins,
 or the neuron begin when the calibration has completed but It
@@ -32,6 +35,7 @@ important.
 
 // GET THE FREQUENCY OF THE INCOMING SIGNAL
 // http://tushev.org/articles/arduino/item/51-measuring-frequency-with-arduino
+
 long Neuron::getFrequency(int pin) {
   int SAMPLES = 10;
   long freq = 0;
@@ -40,12 +44,13 @@ long Neuron::getFrequency(int pin) {
 }
 
 // CONTROLS A NEURONS ACTION POTENTIAL
+
 boolean Neuron::actionPotentialProbability2(int excitory, int inhibitory) {
   
   // A current flaw is that the action potential does not regulate over time.
   // Neurotransmitters naturally ware off over time.
 
-  // ESOTERIC FUNCTION TO RETURN A VALUE FOR A NEURON'S ACTION POTENTIAL
+  // ESOTERIC FUNCTION TO RETURN A VALUE FOR A NEURONS ACTION POTENTIAL
 
   /*if ((excitory - lastExcitory) > (inhibitory - lastInhibitory)) {
    return true;
@@ -81,6 +86,7 @@ will synchronize the firing of neurons to mimic sensory stimuli.
 
 
 // RECIEVE A SIGNAL FROM ANOTHER NEURON
+
 int Neuron::signalType() {
   
   // READ THE BLINK SPEED OF THREE POSSIBLE SIGNALS
@@ -100,6 +106,7 @@ int Neuron::signalType() {
   
   // INHIBITORY FREQUENCY
   // THE 10 IS A BUFFER FOR ANY OUTSIDE INTERFERENCE
+  
   if (frequency < (neuronSpeed * 2) && frequency > 10) {
     Serial.println("Inhibitory " + frequency);
     return 2;
@@ -109,3 +116,5 @@ int Neuron::signalType() {
     return 0;
 
 }
+
+```
